@@ -10,23 +10,31 @@ input_layer = tf.keras.layers.Input(name="input_layer", shape=(None, None,1))
 x = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128)(input_layer)
 #add 3 conv2D
 input_to_block = x
-x = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(x)
-x = tf.keras.layers.BatchNormalization()(x)
-x = tf.keras.layers.Activation("relu")(x)
-x = tf.keras.layers.Dropout(0.2)(x)
-x += input_layer
+for _ in range ((7-1)//2):
+    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Dropout(0.2)(x)
+x += input_to_block
 
-x = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(x)
-x = tf.keras.layers.BatchNormalization()(x)
-x = tf.keras.layers.Activation("relu")(x)
-x = tf.keras.layers.Dropout(0.2)(x)
-x += input_layer
+input_to_block = x
+for _ in range ((7-1)//2):
+    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Dropout(0.2)(x)
+x += input_to_block
 
-x = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(x)
-x = tf.keras.layers.BatchNormalization()(x)
-x = tf.keras.layers.Activation("relu")(x)
-x = tf.keras.layers.Dropout(0.2)(x)
-x += input_layer
+input_to_block = x
+for _ in range ((7-1)//2):
+    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Dropout(0.2)(x)
+x += input_to_block
 
 
 hidden_layer = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=10, padding="same")(x)
