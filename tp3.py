@@ -7,20 +7,33 @@ x_train, x_test = x_train / 255.0 , x_test / 255.0
 input_layer = tf.keras.layers.Input(name="input_layer", shape=(None, None,1))
 
 # modifier le conv2D
-hidden_layer = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128)(input_layer)
+x = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128)(input_layer)
 #add 3 conv2D
-hidden_layer = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(hidden_layer)
-hidden_layer = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(hidden_layer)
-hidden_layer = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(hidden_layer)
+input_to_block = x
+x = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(x)
+x = tf.keras.layers.BatchNormalization()(x)
+x = tf.keras.layers.Activation("relu")(x)
+x = tf.keras.layers.Dropout(0.2)(x)
+x += input_layer
+
+x = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(x)
+x = tf.keras.layers.BatchNormalization()(x)
+x = tf.keras.layers.Activation("relu")(x)
+x = tf.keras.layers.Dropout(0.2)(x)
+x += input_layer
+
+x = tf.keras.layers.Conv2D(kernel_size=(7,7), filters=128 ,padding="same")(x)
+x = tf.keras.layers.BatchNormalization()(x)
+x = tf.keras.layers.Activation("relu")(x)
+x = tf.keras.layers.Dropout(0.2)(x)
+x += input_layer
 
 
-hidden_layer = tf.keras.layers.Activation("relu")(hidden_layer)
-hidden_layer = tf.keras.layers.Dropout(0.2)(hidden_layer)
-hidden_layer = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=10, padding="same")(hidden_layer)
+hidden_layer = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=10, padding="same")(x)
 hidden_layer = tf.keras.layers.GlobalAveragePooling2D()(hidden_layer)
 output_layer = tf.keras.layers.Activation("softmax", name="output_layer")(hidden_layer)
 model = tf.keras.models.Model(inputs=[input_layer], outputs=[output_layer])
-model.summary(150)
+model.summary(100)
 model.compile(
     optimizer = "Adam",
     loss = {
