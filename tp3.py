@@ -9,31 +9,38 @@ input_layer = tf.keras.layers.Input(name="input_layer", shape=(None, None,1))
 # modifier le conv2D
 x = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128)(input_layer)
 #add 3 conv2D
+
 input_to_block = x
+x= tf.keras.layers.Conv2D(kernel_size=(1,1), filters=32 ,padding="same")(x)
 for _ in range ((7-1)//2):
-    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=128 ,padding="same")(x)
-    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=32 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=32 ,padding="same")(x)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.Activation("relu")(x)
     x = tf.keras.layers.Dropout(0.2)(x)
+x= tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128 ,padding="same")(x)
 x += input_to_block
 
 input_to_block = x
+x = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=32 ,padding="same")(x)
 for _ in range ((7-1)//2):
-    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=128 ,padding="same")(x)
-    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=32 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=32 ,padding="same")(x)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.Activation("relu")(x)
     x = tf.keras.layers.Dropout(0.2)(x)
+x= tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128 ,padding="same")(x)
 x += input_to_block
 
 input_to_block = x
+x = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=32 ,padding="same")(x)
 for _ in range ((7-1)//2):
-    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=128 ,padding="same")(x)
-    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=128 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(1,3), filters=32 ,padding="same")(x)
+    x = tf.keras.layers.Conv2D(kernel_size=(3,1), filters=32 ,padding="same")(x)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.Activation("relu")(x)
     x = tf.keras.layers.Dropout(0.2)(x)
+x= tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128 ,padding="same")(x)
 x += input_to_block
 
 
