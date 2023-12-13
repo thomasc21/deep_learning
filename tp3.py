@@ -1,10 +1,10 @@
 import numpy as np
 import tensorflow as tf
-mnist = tf.keras.datasets.mnist
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+cifar = tf.keras.datasets.cifar10
+(x_train, y_train), (x_test, y_test) = cifar.load_data()
   
 x_train, x_test = x_train / 255.0 , x_test / 255.0
-input_layer = tf.keras.layers.Input(name="input_layer", shape=(None, None,1))
+input_layer = tf.keras.layers.Input(name="input_layer", shape=(None, None,3))
 
 # modifier le conv2D
 x = tf.keras.layers.Conv2D(kernel_size=(1,1), filters=128)(input_layer)
